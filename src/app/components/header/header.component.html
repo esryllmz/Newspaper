@@ -1,0 +1,55 @@
+<header class="header">
+  <div class="header-top">
+    <div class="container">
+      <div class="logo">
+        <a routerLink="/">Esra Yılmaz</a>
+      </div>
+
+      <div class="search-box">
+        <form (ngSubmit)="onSearch()" class="search-form">
+          <input
+            type="text"
+            [(ngModel)]="searchQuery"
+            name="search"
+            placeholder="Haber ara..."
+            class="search-input"
+          />
+          <button type="submit" class="search-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <button class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="navbar" [class.active]="showMobileMenu">
+    <div class="container">
+      <ul class="nav-menu">
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Anasayfa</a></li>
+        <li class="dropdown">
+          <a>Kategoriler</a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="/kategori/business" routerLinkActive="active">İş Dünyası</a></li>
+            <li><a routerLink="/kategori/entertainment" routerLinkActive="active">Eğlence</a></li>
+            <li><a routerLink="/kategori/general" routerLinkActive="active">Genel</a></li>
+            <li><a routerLink="/kategori/health" routerLinkActive="active">Sağlık</a></li>
+            <li><a routerLink="/kategori/science" routerLinkActive="active">Bilim</a></li>
+            <li><a routerLink="/kategori/sports" routerLinkActive="active">Spor</a></li>
+            <li><a routerLink="/kategori/technology" routerLinkActive="active">Teknoloji</a></li>
+          </ul>
+        </li>
+        <li><a routerLink="/arama" routerLinkActive="active">Arama</a></li>
+        <li><a routerLink="/hakkimda" routerLinkActive="active">Hakkımda</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>

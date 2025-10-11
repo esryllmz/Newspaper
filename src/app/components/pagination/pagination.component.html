@@ -1,0 +1,52 @@
+<div class="pagination" *ngIf="totalPages > 1">
+  <button
+    class="pagination-button"
+    [disabled]="currentPage === 1"
+    (click)="prevPage()"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+    Önceki
+  </button>
+
+  <button
+    *ngIf="currentPage > 3 && totalPages > 5"
+    class="pagination-button"
+    (click)="goToPage(1)"
+  >
+    1
+  </button>
+
+  <span *ngIf="currentPage > 3 && totalPages > 5" class="pagination-ellipsis">...</span>
+
+  <button
+    *ngFor="let page of pages"
+    class="pagination-button"
+    [class.active]="page === currentPage"
+    (click)="goToPage(page)"
+  >
+    {{ page }}
+  </button>
+
+  <span *ngIf="currentPage < totalPages - 2 && totalPages > 5" class="pagination-ellipsis">...</span>
+
+  <button
+    *ngIf="currentPage < totalPages - 2 && totalPages > 5"
+    class="pagination-button"
+    (click)="goToPage(totalPages)"
+  >
+    {{ totalPages }}
+  </button>
+
+  <button
+    class="pagination-button"
+    [disabled]="currentPage === totalPages"
+    (click)="nextPage()"
+  >
+    Sonraki
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+</div>

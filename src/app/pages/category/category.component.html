@@ -1,0 +1,112 @@
+<div class="category-page">
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">{{ categoryTitle }}</h1>
+      <p class="page-subtitle">{{ categoryTitle }} kategorisindeki en son haberler</p>
+    </div>
+
+    <div class="category-layout">
+      <aside class="sidebar">
+        <div class="filter-card">
+          <h3 class="filter-title">Kategoriler</h3>
+          <ul class="category-list">
+            <li>
+              <a routerLink="/kategori/business" routerLinkActive="active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+                İş Dünyası
+              </a>
+            </li>
+            <li>
+              <a routerLink="/kategori/entertainment" routerLinkActive="active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                Eğlence
+              </a>
+            </li>
+            <li>
+              <a routerLink="/kategori/general" routerLinkActive="active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                Genel
+              </a>
+            </li>
+            <li>
+              <a routerLink="/kategori/health" routerLinkActive="active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+                Sağlık
+              </a>
+            </li>
+            <li>
+              <a routerLink="/kategori/science" routerLinkActive="active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                Bilim
+              </a>
+            </li>
+            <li>
+              <a routerLink="/kategori/sports" routerLinkActive="active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                  <path d="M2 12h20"></path>
+                </svg>
+                Spor
+              </a>
+            </li>
+            <li>
+              <a routerLink="/kategori/technology" routerLinkActive="active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                Teknoloji
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div class="loading" *ngIf="loading">
+          <div class="spinner"></div>
+          <p>Haberler yükleniyor...</p>
+        </div>
+
+        <div class="error-message" *ngIf="error && !loading">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <p>{{ error }}</p>
+        </div>
+
+        <div class="news-grid" *ngIf="newsArticles.length > 0 && !loading">
+          <app-news-card
+            *ngFor="let article of newsArticles"
+            [article]="article"
+          ></app-news-card>
+        </div>
+
+        <app-pagination
+          *ngIf="totalPages > 1 && !loading"
+          [currentPage]="currentPage"
+          [totalPages]="totalPages"
+          (pageChange)="onPageChange($event)"
+        ></app-pagination>
+      </main>
+    </div>
+  </div>
+</div>

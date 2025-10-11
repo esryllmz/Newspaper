@@ -1,0 +1,27 @@
+<div class="news-card" [class.featured]="featured" (click)="openArticle()">
+  <div class="news-image">
+    <img
+      [src]="article.urlToImage || 'https://images.pexels.com/photos/1591056/pexels-photo-1591056.jpeg?auto=compress&cs=tinysrgb&w=800'"
+      [alt]="article.title"
+      loading="lazy"
+    />
+    <div class="news-overlay"></div>
+  </div>
+
+  <div class="news-content">
+    <div class="news-meta">
+      <span class="news-source">{{ article.source.name }}</span>
+      <span class="news-date">{{ formattedDate }}</span>
+    </div>
+
+    <h3 class="news-title">{{ article.title }}</h3>
+
+    <p class="news-description" *ngIf="article.description">
+      {{ article.description }}
+    </p>
+
+    <div class="news-footer">
+      <span class="read-more">Devamını Oku →</span>
+    </div>
+  </div>
+</div>

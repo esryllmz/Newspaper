@@ -1,0 +1,47 @@
+<div class="slider" *ngIf="articles.length > 0">
+  <div class="slider-wrapper">
+    <div class="slides" [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
+      <div class="slide" *ngFor="let article of articles; let i = index" (click)="openArticle(article.url)">
+        <div class="slide-image">
+          <img
+            [src]="article.urlToImage || 'https://images.pexels.com/photos/1591056/pexels-photo-1591056.jpeg?auto=compress&cs=tinysrgb&w=1200'"
+            [alt]="article.title"
+          />
+          <div class="slide-overlay"></div>
+        </div>
+
+        <div class="slide-content">
+          <span class="slide-source">{{ article.source.name }}</span>
+          <h2 class="slide-title">{{ article.title }}</h2>
+          <p class="slide-description" *ngIf="article.description">
+            {{ article.description }}
+          </p>
+          <div class="slide-meta">
+            <span class="slide-date">{{ getFormattedDate(article.publishedAt) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="slider-button prev" (click)="prev(); $event.stopPropagation()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+
+    <button class="slider-button next" (click)="next(); $event.stopPropagation()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <div class="slider-dots">
+    <button
+      *ngFor="let article of articles; let i = index"
+      class="dot"
+      [class.active]="i === currentIndex"
+      (click)="goToSlide(i)"
+    ></button>
+  </div>
+</div>
