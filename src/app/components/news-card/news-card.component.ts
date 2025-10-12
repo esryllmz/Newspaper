@@ -10,6 +10,7 @@ import { NewsArticle } from '../../models/news.model';
   styleUrls: ['./news-card.component.css']
 })
 export class NewsCardComponent {
+
   @Input() article!: NewsArticle;
   @Input() featured: boolean = false;
 
