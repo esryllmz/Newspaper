@@ -6,16 +6,29 @@
   "newProjectRoot": "projects",
   "projects": {
     "demo": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/demo",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico"
+            ],
+            "styles": [
+              "src/global_styles.css"
+            ],
+            "scripts": []
+          },
           "configurations": {
-            "development": {
-              "extractLicenses": false,
-              "namedChunks": true,
-              "optimization": false,
-              "sourceMap": true
-            },
             "production": {
               "aot": true,
               "extractLicenses": true,
@@ -23,21 +36,18 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false
+            },
+            "development": {
+              "extractLicenses": false,
+              "namedChunks": true,
+              "optimization": false,
+              "sourceMap": true
             }
-          },
-          "options": {
-            "assets": [],
-            "index": "src/index.html",
-            "browser": "src/main.ts",
-            "outputPath": "dist/demo",
-            "polyfills": ["zone.js"],
-            "scripts": [],
-            "styles": ["src/global_styles.css"],
-            "tsConfig": "tsconfig.app.json"
           }
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "defaultConfiguration": "development",
           "configurations": {
             "development": {
               "buildTarget": "demo:build:development"
@@ -45,15 +55,9 @@
             "production": {
               "buildTarget": "demo:build:production"
             }
-          },
-          "defaultConfiguration": "development"
+          }
         }
-      },
-      "prefix": "app",
-      "projectType": "application",
-      "root": "",
-      "schematics": {},
-      "sourceRoot": "src"
+      }
     }
   },
   "version": 1

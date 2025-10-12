@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NewsService } from '../../services/news.service';
 import { NewsArticle } from '../../models/news.model';
 import { NewsCardComponent } from '../../components/news-card/news-card.component';
@@ -35,16 +35,30 @@ export class CategoryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private newsService: NewsService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.category = params['category'];
-      this.categoryTitle = this.categoryNames[this.category] || this.category;
-      this.currentPage = 1;
-      this.loadCategoryNews();
+      this.setCategory(params['category']);
     });
+  }
+
+  setCategory(selectedCategory: string) {
+    if (!selectedCategory || this.category === selectedCategory) return;
+
+    this.category = selectedCategory;
+    this.categoryTitle = this.categoryNames[selectedCategory] || selectedCategory;
+    this.currentPage = 1;
+
+    this.router.navigate(['/kategori', selectedCategory], { replaceUrl: true });
+
+    this.loadCategoryNews();
+  }
+
+  onCategoryClick(selectedCategory: string) {
+    this.setCategory(selectedCategory);
   }
 
   loadCategoryNews(): void {

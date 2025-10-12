@@ -32,21 +32,27 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      const query = params['q'];
+      const query = params['q'] || '';
       if (query) {
         this.currentQuery = query;
         this.searchQuery = query;
         this.currentPage = 1;
         this.performSearch();
+      } else {
+        this.newsArticles = [];
+        this.totalPages = 1;
+        this.error = '';
       }
     });
   }
-
-  onSearch(): void {
-    if (this.searchQuery.trim()) {
-      this.router.navigate(['/arama'], { queryParams: { q: this.searchQuery } });
-    }
+onSearch(): void {
+  if (this.searchQuery.trim()) {
+    this.currentQuery = this.searchQuery; 
+    this.currentPage = 1;                 
+    this.performSearch();                  
+    this.router.navigate(['/arama'], { queryParams: { q: this.searchQuery } }); 
   }
+}
 
   performSearch(): void {
     if (!this.currentQuery) return;
@@ -54,23 +60,25 @@ export class SearchComponent implements OnInit {
     this.loading = true;
     this.error = '';
 
-    this.newsService.searchNews(this.currentQuery, this.currentPage, this.pageSize).subscribe({
-      next: (response) => {
-        if (response.articles && response.articles.length > 0) {
-          this.newsArticles = response.articles;
-          this.totalPages = Math.ceil(response.totalResults / this.pageSize);
-        } else {
-          this.error = 'Arama sonucu bulunamadı.';
-          this.newsArticles = [];
+    this.newsService.searchNews(this.currentQuery, this.currentPage, this.pageSize)
+      .subscribe({
+        next: (response) => {
+          if (response.articles && response.articles.length > 0) {
+            this.newsArticles = response.articles;
+            this.totalPages = Math.ceil(response.totalResults / this.pageSize);
+          } else {
+            this.error = 'Arama sonucu bulunamadı.';
+            this.newsArticles = [];
+            this.totalPages = 1;
+          }
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error searching news:', err);
+          this.error = 'Arama yapılırken bir hata oluştu.';
+          this.loading = false;
         }
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error searching news:', err);
-        this.error = 'Arama yapılırken bir hata oluştu.';
-        this.loading = false;
-      }
-    });
+      });
   }
 
   onPageChange(page: number): void {

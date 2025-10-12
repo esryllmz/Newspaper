@@ -8,22 +8,17 @@ import { NewsResponse } from '../models/news.model';
 })
 export class NewsService {
   private readonly API_KEY = '676f017549224f488970f1835f9db971';
-  private readonly BASE_URL = 'https://newsapi.org/v2/top-headlines';
+  private readonly BASE_URL = 'https://newsapi.org/v2/everything';
 
   constructor(private http: HttpClient) {}
 
-  getTopHeadlines(page: number = 1, pageSize: number = 10): Observable<NewsResponse> {
-    const url = `${this.BASE_URL}?country=tr&page=${page}&pageSize=${pageSize}&apiKey=${this.API_KEY}`;
-    return this.http.get<NewsResponse>(url).pipe(
-      catchError(error => {
-        console.error('Error fetching top headlines:', error);
-        return of({ status: 'error', totalResults: 0, articles: [] });
-      })
-    );
-  }
 
-  getCategoryNews(category: string, page: number = 1, pageSize: number = 10): Observable<NewsResponse> {
-    const url = `${this.BASE_URL}?country=tr&category=${category}&page=${page}&pageSize=${pageSize}&apiKey=${this.API_KEY}`;
+  getCategoryNews(category: string, page: number = 1, pageSize: number = 12): Observable<NewsResponse> {
+    if (!category || category.trim() === '') {
+      return of({ status: 'error', totalResults: 0, articles: [] });
+    }
+
+    const url = `${this.BASE_URL}?q=${encodeURIComponent(category)}&language=tr&sortBy=publishedAt&page=${page}&pageSize=${pageSize}&apiKey=${this.API_KEY}`;
     return this.http.get<NewsResponse>(url).pipe(
       catchError(error => {
         console.error(`Error fetching ${category} news:`, error);
@@ -32,8 +27,12 @@ export class NewsService {
     );
   }
 
-  searchNews(query: string, page: number = 1, pageSize: number = 10): Observable<NewsResponse> {
-    const url = `${this.BASE_URL}?country=tr&q=${encodeURIComponent(query)}&page=${page}&pageSize=${pageSize}&apiKey=${this.API_KEY}`;
+  searchNews(query: string, page: number = 1, pageSize: number = 12): Observable<NewsResponse> {
+    if (!query || query.trim() === '') {
+      return of({ status: 'error', totalResults: 0, articles: [] });
+    }
+
+    const url = `${this.BASE_URL}?q=${encodeURIComponent(query)}&language=tr&sortBy=publishedAt&page=${page}&pageSize=${pageSize}&apiKey=${this.API_KEY}`;
     return this.http.get<NewsResponse>(url).pipe(
       catchError(error => {
         console.error(`Error searching for ${query}:`, error);
@@ -41,4 +40,15 @@ export class NewsService {
       })
     );
   }
+
+ getTopHeadlines(page: number = 1, pageSize: number = 12): Observable<NewsResponse> {
+  const url = `${this.BASE_URL}?q=haber&language=tr&sortBy=publishedAt&page=${page}&pageSize=${pageSize}&apiKey=${this.API_KEY}`;
+  return this.http.get<NewsResponse>(url).pipe(
+    catchError(error => {
+      console.error('Error fetching top headlines:', error);
+      return of({ status: 'error', totalResults: 0, articles: [] });
+    })
+  );
+}
+
 }

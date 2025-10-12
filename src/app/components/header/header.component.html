@@ -35,18 +35,20 @@
     <div class="container">
       <ul class="nav-menu">
         <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Anasayfa</a></li>
-        <li class="dropdown">
-          <a>Kategoriler</a>
+
+        <li class="dropdown" [class.active]="showMobileMenu">
+          <a (click)="toggleMobileMenu()">Kategoriler</a>
           <ul class="dropdown-menu">
-            <li><a routerLink="/kategori/business" routerLinkActive="active">İş Dünyası</a></li>
-            <li><a routerLink="/kategori/entertainment" routerLinkActive="active">Eğlence</a></li>
-            <li><a routerLink="/kategori/general" routerLinkActive="active">Genel</a></li>
-            <li><a routerLink="/kategori/health" routerLinkActive="active">Sağlık</a></li>
-            <li><a routerLink="/kategori/science" routerLinkActive="active">Bilim</a></li>
-            <li><a routerLink="/kategori/sports" routerLinkActive="active">Spor</a></li>
-            <li><a routerLink="/kategori/technology" routerLinkActive="active">Teknoloji</a></li>
+            <li><a routerLink="/kategori/business" routerLinkActive="active" (click)="closeDropdown()">İş Dünyası</a></li>
+            <li><a routerLink="/kategori/entertainment" routerLinkActive="active" (click)="closeDropdown()">Eğlence</a></li>
+            <li><a routerLink="/kategori/general" routerLinkActive="active" (click)="closeDropdown()">Genel</a></li>
+            <li><a routerLink="/kategori/health" routerLinkActive="active" (click)="closeDropdown()">Sağlık</a></li>
+            <li><a routerLink="/kategori/science" routerLinkActive="active" (click)="closeDropdown()">Bilim</a></li>
+            <li><a routerLink="/kategori/sports" routerLinkActive="active" (click)="closeDropdown()">Spor</a></li>
+            <li><a routerLink="/kategori/technology" routerLinkActive="active" (click)="closeDropdown()">Teknoloji</a></li>
           </ul>
         </li>
+
         <li><a routerLink="/arama" routerLinkActive="active">Arama</a></li>
         <li><a routerLink="/hakkimda" routerLinkActive="active">Hakkımda</a></li>
       </ul>

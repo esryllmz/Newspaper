@@ -27,4 +27,7 @@ export class HeaderComponent {
   toggleMobileMenu(): void {
     this.showMobileMenu = !this.showMobileMenu;
   }
+  closeDropdown() {
+    this.showMobileMenu = false;
+  }
 }
