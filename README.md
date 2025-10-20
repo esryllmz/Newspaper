@@ -186,5 +186,3 @@ export class NewsService {
 **E-posta:** dev.esrayilmaz@gmail.com  
 **Lokasyon:** İstanbul, Türkiye
 ````
-
-
