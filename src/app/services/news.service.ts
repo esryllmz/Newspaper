@@ -7,7 +7,7 @@ import { NewsResponse } from '../models/news.model';
   providedIn: 'root'
 })
 export class NewsService {
-  private readonly API_KEY = '676f017549224f488970f1835f9db971';
+  private readonly API_KEY = '1d86bff7f6f64b9a9f1509aa0c0439c4';
   private readonly BASE_URL = 'https://newsapi.org/v2/everything';
 
   constructor(private http: HttpClient) {}
