@@ -1,8 +1,8 @@
 
-# 📰 NewspaperFrontend
+# 📰 Newspaper
 
 ## 🔍 Genel Bakış
-**NewspaperFrontend**, **Angular 20** ile geliştirilmiş modern, duyarlı (responsive) bir haber portalı projesidir.  
+**Newspaper**, **Angular 20** ile geliştirilmiş modern, duyarlı (responsive) bir haber portalı projesidir.  
 Uygulama, **NewsAPI** üzerinden Türkiye (`country=tr`) haberlerini çekerek kullanıcıya kategori bazlı olarak sunar.  
 
 Ana sayfada **slider**, kategori sayfalarında **filtreleme paneli**, **arama alanı** ve **“Hakkımda”** sayfası gibi bölümler bulunur.
